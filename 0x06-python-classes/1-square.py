@@ -1,13 +1,8 @@
 #!/usr/bin/python3
-"""Define a class Square."""
+"""docstring for Square"""
 
-#just ccruising
+
 class Square:
-    """Represent a square."""
-
+    """docstring for init"""
     def __init__(self, size):
-        """Initialize a new Square.
-        Args:
-            size (int): The size of the new square.
-        """
         self.__size = size
