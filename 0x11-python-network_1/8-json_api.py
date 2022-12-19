@@ -1,14 +1,26 @@
 #!/usr/bin/python3
 """
-given username and pw as param, get your id from Github api
-usage: ./10-my_github.py [github_username] [github_pw]
+given letter as param, POST to http://0.0.0.0:5000/search_user
+usage: ./8-json_api.py [letter only]
 """
 from sys import argv
 import requests
-from requests.auth import HTTPBasicAuth
 
 
 if __name__ == "__main__":
-    url = 'https://api.github.com/user'
-    r = requests.get(url, auth=HTTPBasicAuth(argv[1], argv[2]))
-    print(r.json().get('id'))
+    if len(argv) < 2:
+        letter = ""
+    else:
+        letter = argv[1]
+    url = 'http://0.0.0.0:5000/search_user'
+    payload = {'q': letter}
+    r = requests.post(url, data=payload)
+
+    try:
+        dic = r.json()
+        if dic:
+            print("[{}] {}".format(dic.get('id'), dic.get('name')))
+        else:
+            print("No result")
+    except ValueError as e:
+        print("Not a valid JSON")
